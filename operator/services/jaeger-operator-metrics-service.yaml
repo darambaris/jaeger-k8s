@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-11-17T17:06:55Z"
+  labels:
+    name: jaeger-operator
+  name: jaeger-operator-metrics
+  namespace: observability
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Deployment
+    name: jaeger-operator
+    uid: 27668a4e-c83a-4dff-8148-7742053ef893
+  resourceVersion: "1666"
+  uid: dcc238d6-c842-4a42-8d17-054fbb95368a
+spec:
+  clusterIP: 10.96.247.203
+  clusterIPs:
+  - 10.96.247.203
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http-metrics
+    port: 8383
+    protocol: TCP
+    targetPort: 8383
+  - name: cr-metrics
+    port: 8686
+    protocol: TCP
+    targetPort: 8686
+  selector:
+    name: jaeger-operator
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
